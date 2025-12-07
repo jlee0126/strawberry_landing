@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문하기 - 달곰딸기팜</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-red-600 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-white text-2xl font-bold">🍓 달곰딸기팜</a>
+                </div>
+                <a href="index.html" class="text-white hover:text-red-200 transition">← 홈으로</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Order Section -->
+    <section class="py-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-8 text-center">주문하기</h1>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Order Form -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">주문 정보</h2>
+                    
+                    <!-- Product Info -->
+                    <div id="productInfo" class="mb-6 p-4 bg-red-50 rounded-lg">
+                        <div class="flex items-center gap-4 mb-4">
+                            <img id="productImage" src="" alt="제품 이미지" class="w-20 h-20 object-cover rounded-lg">
+                            <div>
+                                <h3 id="productName" class="text-xl font-bold text-gray-800"></h3>
+                                <p id="productPrice" class="text-2xl font-bold text-red-600"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="orderForm" class="space-y-6">
+                        <!-- Quantity -->
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">수량</label>
+                            <div class="flex items-center gap-4">
+                                <button type="button" id="decreaseQty" class="bg-gray-200 hover:bg-gray-300 text-gray-700 w-10 h-10 rounded-lg font-bold transition">-</button>
+                                <input type="number" id="quantity" name="quantity" value="1" min="1" max="10" class="w-20 text-center border border-gray-300 rounded-lg px-4 py-2 text-lg font-semibold">
+                                <button type="button" id="increaseQty" class="bg-gray-200 hover:bg-gray-300 text-gray-700 w-10 h-10 rounded-lg font-bold transition">+</button>
+                                <span id="totalPrice" class="text-xl font-bold text-red-600 ml-auto"></span>
+                            </div>
+                        </div>
+
+                        <!-- Customer Info -->
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">이름 *</label>
+                            <input type="text" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="이름을 입력하세요">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">전화번호 *</label>
+                            <input type="tel" name="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="010-0000-0000">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">이메일 *</label>
+                            <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="email@example.com">
+                        </div>
+
+                        <!-- Delivery Address -->
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">배송 주소 *</label>
+                            <input type="text" name="address" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-transparent mb-2" placeholder="기본 주소">
+                            <input type="text" name="addressDetail" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="상세 주소 (선택)">
+                        </div>
+
+                        <!-- Delivery Date -->
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">희망 배송일</label>
+                            <input type="date" name="deliveryDate" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                        </div>
+
+                        <!-- Delivery Note -->
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">배송 메시지</label>
+                            <textarea name="deliveryNote" rows="3" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="배송 시 요청사항을 입력하세요"></textarea>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">결제 방법 *</label>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="payment" value="card" checked class="mr-2">
+                                    <span>신용카드</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="payment" value="bank" class="mr-2">
+                                    <span>무통장 입금</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="payment" value="kakao" class="mr-2">
+                                    <span>카카오페이</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full bg-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-red-700 transition shadow-lg">
+                            주문하기
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 h-fit sticky top-24">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">주문 요약</h2>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex justify-between text-gray-600">
+                            <span>제품 금액</span>
+                            <span id="summaryProductPrice">0원</span>
+                        </div>
+                        <div class="flex justify-between text-gray-600">
+                            <span>배송비</span>
+                            <span>3,000원</span>
+                        </div>
+                        <div class="border-t pt-4 flex justify-between text-xl font-bold text-gray-800">
+                            <span>총 결제금액</span>
+                            <span id="summaryTotalPrice" class="text-red-600">0원</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-red-50 rounded-lg p-4 mb-6">
+                        <h3 class="font-semibold text-gray-800 mb-2">배송 안내</h3>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• 평일 오후 2시 이전 주문 시 당일 발송</li>
+                            <li>• 배송 소요시간: 1-2일</li>
+                            <li>• 제주도 및 도서산간 지역 추가 배송비 발생</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">환불 정책</h3>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• 상품 수령 후 7일 이내 환불 가능</li>
+                            <li>• 상품 하자 시 100% 환불</li>
+                            <li>• 단순 변심 시 배송비 차감</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2024 달곰딸기팜. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // URL 파라미터에서 제품 정보 가져오기
+        const urlParams = new URLSearchParams(window.location.search);
+        const product = urlParams.get('product');
+        
+        // 제품 정보
+        const products = {
+            'seolhyang': {
+                name: '설향 딸기',
+                price: 25000,
+                image: 'https://images.pexels.com/photos/934070/pexels-photo-934070.jpeg?auto=compress&cs=tinysrgb&w=600'
+            },
+            'geumsil': {
+                name: '금실 딸기',
+                price: 30000,
+                image: 'https://images.pexels.com/photos/1300972/pexels-photo-1300972.jpeg?auto=compress&cs=tinysrgb&w=600'
+            },
+            'mixed': {
+                name: '혼합 딸기 박스',
+                price: 45000,
+                image: 'https://images.pexels.com/photos/934066/pexels-photo-934066.jpeg?auto=compress&cs=tinysrgb&w=600'
+            }
+        };
+
+        // 기본 제품 설정 (파라미터가 없을 경우)
+        const selectedProduct = products[product] || products['seolhyang'];
+        let currentPrice = selectedProduct.price;
+        let quantity = 1;
+        const deliveryFee = 3000;
+
+        // 제품 정보 표시
+        document.getElementById('productName').textContent = selectedProduct.name;
+        document.getElementById('productPrice').textContent = selectedProduct.price.toLocaleString() + '원';
+        document.getElementById('productImage').src = selectedProduct.image;
+        
+        // 총액 계산 함수
+        function updateTotal() {
+            const productTotal = currentPrice * quantity;
+            const total = productTotal + deliveryFee;
+            
+            document.getElementById('totalPrice').textContent = (productTotal).toLocaleString() + '원';
+            document.getElementById('summaryProductPrice').textContent = productTotal.toLocaleString() + '원';
+            document.getElementById('summaryTotalPrice').textContent = total.toLocaleString() + '원';
+        }
+
+        // 수량 증가/감소
+        document.getElementById('increaseQty').addEventListener('click', () => {
+            quantity = Math.min(quantity + 1, 10);
+            document.getElementById('quantity').value = quantity;
+            updateTotal();
+        });
+
+        document.getElementById('decreaseQty').addEventListener('click', () => {
+            quantity = Math.max(quantity - 1, 1);
+            document.getElementById('quantity').value = quantity;
+            updateTotal();
+        });
+
+        document.getElementById('quantity').addEventListener('change', (e) => {
+            quantity = Math.min(Math.max(parseInt(e.target.value) || 1, 1), 10);
+            e.target.value = quantity;
+            updateTotal();
+        });
+
+        // 주문 폼 제출
+        document.getElementById('orderForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const orderData = {
+                product: selectedProduct.name,
+                quantity: quantity,
+                totalPrice: (currentPrice * quantity + deliveryFee).toLocaleString() + '원',
+                ...Object.fromEntries(formData)
+            };
+            
+            // 주문 완료 알림 (실제로는 서버로 전송)
+            alert(`주문이 완료되었습니다!\n\n제품: ${selectedProduct.name}\n수량: ${quantity}개\n총 금액: ${orderData.totalPrice}\n\n주문 정보가 이메일로 전송되었습니다.`);
+            
+            // 홈으로 이동
+            window.location.href = 'index.html';
+        });
+
+        // 초기 총액 계산
+        updateTotal();
+    </script>
+</body>
+</html>
+
